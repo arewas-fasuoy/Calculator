@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<link rel="stylesheet" type="text/css" href="s.css">
+	<script type="text/javascript" src="code.js"></script>
+</head>
+<body>
+	<div class="main">
+		<form class="myForm">
+			<input name="textview" class="textview" id='test1'>
+		</form>
+		<table>
+			<tr>
+				<td><input type="button" class="button symbol gray" value="√" onclick=""></td>
+				<td><input type="button" class="button symbol gray" value="x&sup2;" onclick=""></td>
+				<td><input type="button" class="button symbol gray" value="⌫" onclick="backspace()"></td>
+				<td><input type="button" class="button symbol blue" value="&#247;" onclick="insertNum('/')"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="button number gray" value="7" onclick="insertNum(7)"></td>
+				<td><input type="button" class="button number gray" value="8" onclick="insertNum(8)"></td>
+				<td><input type="button" class="button number gray" value="9" onclick="insertNum(9)"></td>
+				<td><input type="button" class="button symbol blue" value="&times;" onclick="insertNum('*')"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="button number gray" value="4" onclick="insertNum(4)"></td>
+				<td><input type="button" class="button number gray" value="5" onclick="insertNum(5)"></td>
+				<td><input type="button" class="button number gray" value="6" onclick="insertNum(6)"></td>
+				<td><input type="button" class="button symbol blue" value="-" onclick="insertNum('-')"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="button number gray" value="1" onclick="insertNum(1)"></td>
+				<td><input type="button" class="button number gray" value="2" onclick="insertNum(2)"></td>
+				<td><input type="button" class="button number gray" value="3" onclick="insertNum(3)"></td>
+				<td><input type="button" class="button symbol blue" value="+" onclick="insertNum('+')"></td>
+			</tr>
+			<tr>
+				<td><input type="button" class="button symbol gray" value="C" onclick="clear1()"></td>
+				<td><input type="button" class="button number gray" value="0" onclick="insertNum(0)"></td>
+				<td><input type="button" class="button symbol gray" value="." onclick="insertNum('.')"></td>
+				<td><input type="button" class="button symbol blue" value="=" onclick="equal()"></td>
+			</tr>
+		</table>
+	</div>
+	<script>
+
+		//JAVASCRIPT CODE
+					
+		function insertNum(x) {
+			var temp = document.getElementById('test1');
+			temp.value = temp.value+x;
+			}
+			
+
+		function clear1() {
+			var temp = document.getElementById('test1');
+			temp.value='';
+			//alert('Nothinmg');
+		}
+
+		function equal() {
+			var temp = document.getElementById('test1');
+			var x=temp.value;
+			var res=0;
+			var asci1=[46,48,49,50,51,52,53,54,55,56];
+			var asci2=[47,42,43,45];
+			var numbrs=[];
+			var operands=[];
+			var test="";
+			for(var i=0;i<x.length;i++)
+			{	
+				var c = x.charCodeAt(i);
+				 for (var j=0;j<10;j++)
+				 {   if(c==asci1[j]){
+				 		test += x[i];
+				 	}
+				 	else if(c==asci2[j]){
+				 		numbrs.push(test);
+				 		operands.push(x[i]);
+				 		test = "";
+				 	}
+				 }
+			
+			}
+
+			numbrs.push(test);
+			// alert(numbrs);
+			// alert(operands);
+				 for (var i=0;i<operands.length;i++)
+				 {
+				 	if(operands[i].charCodeAt(i)==47)
+				 		{var index=operands.indexOf(operands[i]);
+				 		res=parseFloat(numbrs[index])/parseFloat(numbrs[index+1]);
+				 	}
+				 	else if (operands[i].charCodeAt(i)==42)
+				 		{var index=operands.indexOf(operands[i]);
+				 		res=parseFloat(numbrs[index])*parseFloat(numbrs[index+1]);
+				 	}
+				 	else if (operands[i].charCodeAt(i)==43)
+				 		{var index=operands.indexOf(operands[i]);
+				 		res=parseFloat(numbrs[index])+parseFloat(numbrs[index+1]);
+				 	}
+				 	else if (operands[i].charCodeAt(i)==45)
+				 		{var index=operands.indexOf(operands[i]);
+				 		res=parseFloat(numbrs[index])-parseFloat(numbrs[index+1]);
+				 	}
+
+				 }
+				 //alert(res);
+				 temp.value=res;
+	}
+
+	 		function backspace(){
+			var temp = document.getElementById('test1');
+		    var x=temp.value;
+			if (x.length>0){
+			x=x.substring(0,x.length-1);
+			temp.value=x;
+	       }
+		}
+
+	</script>
+</body>
+</html>
+
